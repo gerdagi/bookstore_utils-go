@@ -16,6 +16,14 @@ func NewError(msg string) error {
 	return errors.New(msg)
 }
 
+func NewRestError(message string) *RestError {
+	return &RestError{
+		Message: message,
+		Status:  http.StatusNotImplemented,
+		Error:   "not_implemented",
+	}
+}
+
 func NewBadRequestError(message string) *RestError {
 	return &RestError{
 		Message: message,
