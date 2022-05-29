@@ -2,6 +2,7 @@ package resterrors
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 )
 
@@ -37,6 +38,14 @@ func NewNotFoundError(message string) *RestError {
 		Message: message,
 		Status:  http.StatusNotFound,
 		Error:   "not_found",
+	}
+}
+
+func NewUnauthorizedError(message string) *RestError {
+	return &RestError{
+		Message: fmt.Sprintf("unable to retrieve user information from given access_token, %s", message),
+		Status:  http.StatusUnauthorized,
+		Error:   "unauthorized",
 	}
 }
 
