@@ -11,6 +11,10 @@ var (
 	log logger
 )
 
+type bookStoreLogger interface {
+	Printf(string, ...interface{})
+}
+
 type logger struct {
 	log *zap.Logger
 }
@@ -37,7 +41,7 @@ func init() {
 
 }
 
-func GetLogger() logger {
+func GetLogger() bookStoreLogger {
 	return log
 }
 
