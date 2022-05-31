@@ -1,6 +1,7 @@
 package resterrors
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -65,6 +66,15 @@ func NewRestError(message string, status int, err string, causes []interface{}) 
 		error:   err,
 		causes:  causes,
 	}
+}
+
+func NewRestErrorFromBytes(bytes []byte) (RestErr, error) {
+	var apiErr restError
+	if err := json.Unmarshal(bytes, &apiErr); err != nil {
+		return nil, errors.New("invalid json")
+	}
+
+	return apiErr, nil
 }
 
 func NewUnauthorizedError(message string) RestErr {
